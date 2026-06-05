@@ -1,3 +1,4 @@
+import { useCareersData } from "../hooks/useSiteData";
 import { useState } from "react";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -114,7 +115,7 @@ const JOB_LISTINGS = [
 const PERKS = [
     {
         icon: (
-            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#f47b20" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#e8611a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M24 4C13 4 4 13 4 24s9 20 20 20 20-9 20-20S35 4 24 4z" />
                 <path d="M24 12v12l8 4" strokeWidth="2" />
             </svg>
@@ -124,7 +125,7 @@ const PERKS = [
     },
     {
         icon: (
-            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#f47b20" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#e8611a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M24 4L6 11v11c0 11 7.5 18.5 18 21.5C34.5 33.5 42 26 42 22V11L24 4z" />
                 <path d="M16 24l5 5 11-11" strokeWidth="2.2" />
             </svg>
@@ -134,7 +135,7 @@ const PERKS = [
     },
     {
         icon: (
-            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#f47b20" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#e8611a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="24" cy="16" r="8" />
                 <path d="M8 44c0-8.8 7.2-16 16-16s16 7.2 16 16" />
                 <path d="M34 20l4 4-4 4" strokeWidth="1.5" />
@@ -146,7 +147,7 @@ const PERKS = [
     },
     {
         icon: (
-            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#f47b20" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#e8611a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="8" y="10" width="32" height="28" rx="3" />
                 <path d="M8 18h32" />
                 <path d="M18 10V6M30 10V6" />
@@ -159,7 +160,7 @@ const PERKS = [
     },
     {
         icon: (
-            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#f47b20" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#e8611a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="6" y="20" width="36" height="22" rx="2" />
                 <path d="M6 20l9-10h18l9 10" />
                 <rect x="18" y="28" width="12" height="14" rx="1" />
@@ -170,7 +171,7 @@ const PERKS = [
     },
     {
         icon: (
-            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#f47b20" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#e8611a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="24" cy="24" r="18" />
                 <path d="M24 14v10l6 6" strokeWidth="2.2" />
                 <path d="M14 24h-4M38 24h-4M24 10V6M24 42v-4" strokeWidth="1.3" />
@@ -182,10 +183,26 @@ const PERKS = [
 ];
 
 const VALUES = [
-    { label: "Integrity", icon: "🤝", desc: "We do what we say and say what we do — in our products and in how we treat our people." },
-    { label: "Excellence", icon: "⭐", desc: "We pursue the highest standard in every task, whether running a production line or filing a report." },
-    { label: "Safety First", icon: "🛡️", desc: "Food safety and workplace safety are non-negotiable. We protect both our products and our people." },
-    { label: "Teamwork", icon: "👥", desc: "Our best results come from collaboration across departments, shifts, and levels of seniority." },
+    {
+        label: "Integrity",
+        icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>),
+        desc: "We do what we say and say what we do — in our products and in how we treat our people.",
+    },
+    {
+        label: "Excellence",
+        icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>),
+        desc: "We pursue the highest standard in every task, whether running a production line or filing a report.",
+    },
+    {
+        label: "Safety First",
+        icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>),
+        desc: "Food safety and workplace safety are non-negotiable. We protect both our products and our people.",
+    },
+    {
+        label: "Teamwork",
+        icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>),
+        desc: "Our best results come from collaboration across departments, shifts, and levels of seniority.",
+    },
 ];
 
 const PROCESS_STEPS = [
@@ -213,9 +230,15 @@ body {
 .tm-page { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; background: #f5f7fa !important; }
 
 :root {
-  --navy: #0d1b3e; --navy-dark: #060f23; --blue: #1a3a6b;
-  --orange: #f47b20; --orange-dark: #d96a10;
-  --gray-light: #f5f7fa; --gray: #7a8499;
+  --navy:         #0a1628;
+  --navy-mid:     #0a1628;
+  --navy-light:   #1a3a6b;
+  --navy-dark:    #060f1e;
+  --orange:       #e8611a;
+  --orange-dark:  #c9500f;
+  --gray-bg:      #f5f7fa;
+  --gray-text:    #6b7589;
+  --border-light: #e4e8ef;
 }
 
 .cp-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
@@ -225,7 +248,7 @@ body {
 .cp-hero::before {
   content: ''; position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 85% 50%, rgba(244,123,32,.08) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 80% at 85% 50%, rgba(232,97,26,.08) 0%, transparent 65%),
     repeating-linear-gradient(-45deg, transparent, transparent 38px, rgba(255,255,255,.016) 38px, rgba(255,255,255,.016) 39px);
   pointer-events: none;
 }
@@ -255,6 +278,7 @@ body {
   line-height: 1.05; color: #fff; text-transform: uppercase; letter-spacing: -.5px;
 }
 .cp-hero-title .hl { color: var(--orange); }
+.cp-hero-title-hl { color: var(--orange); }
 .cp-hero-divider { width: 50px; height: 3.5px; background: var(--orange); border-radius: 2px; margin: 20px 0; }
 .cp-hero-desc { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.85; margin-bottom: 32px; max-width: 520px; }
 .cp-hero-stats { display: flex; gap: 36px; flex-wrap: wrap; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.1); }
@@ -277,7 +301,7 @@ body {
   display: flex; align-items: center; justify-content: space-between;
   transition: background .2s, border-color .2s; cursor: pointer;
 }
-.cp-hero-role-item:hover { background: rgba(255,255,255,.1); border-color: rgba(244,123,32,.4); }
+.cp-hero-role-item:hover { background: rgba(255,255,255,.1); border-color: rgba(232,97,26,.4); }
 .cp-hero-role-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12.5px; color: #fff; }
 .cp-hero-role-dept {
   font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700;
@@ -288,7 +312,7 @@ body {
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 9px;
   letter-spacing: .8px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
 }
-.cp-hero-role-badge.urgent { background: rgba(244,123,32,.25); color: var(--orange); border: 1px solid rgba(244,123,32,.4); }
+.cp-hero-role-badge.urgent { background: rgba(232,97,26,.25); color: var(--orange); border: 1px solid rgba(232,97,26,.4); }
 .cp-hero-role-badge.open { background: rgba(255,255,255,.1); color: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.15); }
 .cp-hero-card-footer {
   margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.08);
@@ -313,7 +337,7 @@ body {
 .cp-value-desc { font-size: 12px; color: rgba(255,255,255,.8); line-height: 1.65; }
 
 /* ════ PERKS ════ */
-.cp-perks { background: var(--gray-light); padding: 80px 0; width: 100%; }
+.cp-perks { background: var(--gray-bg); padding: 80px 0; width: 100%; }
 .cp-section-header { text-align: center; margin-bottom: 52px; }
 .cp-section-label {
   display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px;
@@ -324,7 +348,7 @@ body {
   color: var(--navy); text-transform: uppercase; letter-spacing: .4px; line-height: 1.1; margin-bottom: 12px;
 }
 .cp-section-title-white { color: #fff; }
-.cp-section-sub { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 540px; margin: 0 auto; }
+.cp-section-sub { font-size: 14px; color: var(--gray-text); line-height: 1.8; max-width: 540px; margin: 0 auto; }
 .cp-section-sub-white { color: rgba(255,255,255,.55); }
 .cp-perks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .cp-perk-card {
@@ -333,15 +357,15 @@ body {
   transition: box-shadow .25s, transform .25s, border-color .25s;
   display: flex; align-items: flex-start; gap: 18px;
 }
-.cp-perk-card:hover { box-shadow: 0 12px 40px rgba(13,27,62,.12); transform: translateY(-3px); border-color: rgba(244,123,32,.25); }
+.cp-perk-card:hover { box-shadow: 0 12px 40px rgba(13,27,62,.12); transform: translateY(-3px); border-color: rgba(232,97,26,.25); }
 .cp-perk-icon-wrap {
   width: 60px; height: 60px; border-radius: 12px; flex-shrink: 0;
-  background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6b 100%);
+  background: linear-gradient(135deg, #0a1628 0%, #1a3a6b 100%);
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 6px 18px rgba(13,27,62,.2);
 }
 .cp-perk-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 14px; color: var(--navy); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 8px; }
-.cp-perk-desc { font-size: 13px; color: var(--gray); line-height: 1.75; }
+.cp-perk-desc { font-size: 13px; color: var(--gray-text); line-height: 1.75; }
 
 /* ════ JOB LISTINGS ════ */
 .cp-jobs { background: #fff; padding: 80px 0; width: 100%; }
@@ -353,23 +377,23 @@ body {
 .cp-filter-tab {
   padding: 9px 18px; border-radius: 24px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px;
-  color: var(--gray); text-transform: uppercase; letter-spacing: .8px;
+  color: var(--gray-text); text-transform: uppercase; letter-spacing: .8px;
   border: 1.5px solid #dde2ec; background: #fff; cursor: pointer;
   transition: all .2s; white-space: nowrap;
 }
 .cp-filter-tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
 .cp-filter-tab:hover:not(.active) { border-color: var(--orange); color: var(--orange); }
-.cp-jobs-count { font-family: 'Montserrat', sans-serif; font-size: 12.5px; color: var(--gray); white-space: nowrap; }
+.cp-jobs-count { font-family: 'Montserrat', sans-serif; font-size: 12.5px; color: var(--gray-text); white-space: nowrap; }
 .cp-jobs-count b { color: var(--navy); }
 .cp-jobs-grid { display: flex; flex-direction: column; gap: 16px; }
 
 /* Job Card */
 .cp-job-card {
-  background: var(--gray-light); border-radius: 16px;
+  background: var(--gray-bg); border-radius: 16px;
   border: 1px solid #eaeaea; overflow: hidden;
   transition: box-shadow .25s, border-color .25s;
 }
-.cp-job-card:hover { box-shadow: 0 8px 32px rgba(13,27,62,.1); border-color: rgba(244,123,32,.3); }
+.cp-job-card:hover { box-shadow: 0 8px 32px rgba(13,27,62,.1); border-color: rgba(232,97,26,.3); }
 .cp-job-card-header {
   padding: 22px 26px 18px;
   display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
@@ -387,7 +411,7 @@ body {
   padding: 3px 11px; border-radius: 5px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 9.5px;
   letter-spacing: 1px; text-transform: uppercase;
-  background: rgba(244,123,32,.15); color: var(--orange); border: 1px solid rgba(244,123,32,.3);
+  background: rgba(232,97,26,.15); color: var(--orange); border: 1px solid rgba(232,97,26,.3);
 }
 .cp-job-title {
   font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 17px;
@@ -396,12 +420,12 @@ body {
 .cp-job-meta { display: flex; gap: 20px; flex-wrap: wrap; }
 .cp-job-meta-item {
   display: flex; align-items: center; gap: 5px;
-  font-size: 12px; color: var(--gray);
+  font-size: 12px; color: var(--gray-text);
   font-family: 'Montserrat', sans-serif; font-weight: 600;
 }
-.cp-job-meta-icon { font-size: 13px; }
+.cp-job-meta-icon { display: flex; align-items: center; color: var(--gray-text); }
 .cp-job-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
-.cp-job-posted { font-size: 11px; color: var(--gray); white-space: nowrap; }
+.cp-job-posted { font-size: 11px; color: var(--gray-text); white-space: nowrap; }
 .cp-job-expand-btn {
   width: 32px; height: 32px; border-radius: 50%;
   background: var(--navy); border: none; cursor: pointer;
@@ -439,7 +463,7 @@ body {
 }
 .cp-job-ben-dot {
   width: 16px; height: 16px; border-radius: 50%;
-  background: rgba(244,123,32,.15); border: 1.5px solid var(--orange);
+  background: rgba(232,97,26,.15); border: 1.5px solid var(--orange);
   display: flex; align-items: center; justify-content: center;
   font-size: 8px; color: var(--orange); font-weight: 900; flex-shrink: 0; margin-top: 2px;
 }
@@ -447,10 +471,10 @@ body {
   grid-column: 1 / -1; padding-top: 18px; border-top: 1px solid #eaeaea;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
 }
-.cp-job-apply-note { font-size: 12px; color: var(--gray); }
+.cp-job-apply-note { font-size: 12px; color: var(--gray-text); }
 .btn-cp-apply {
   background: var(--orange); color: #fff; border: none;
-  padding: 12px 28px; border-radius: 7px;
+  padding: 12px 28px; border-radius: 4px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12.5px;
   text-transform: uppercase; letter-spacing: .8px; cursor: pointer;
   transition: background .2s; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
@@ -465,11 +489,11 @@ body {
   border-radius: 16px; padding: 28px 22px; position: relative; overflow: hidden;
   transition: background .2s, border-color .2s;
 }
-.cp-process-step:hover { background: rgba(255,255,255,.07); border-color: rgba(244,123,32,.35); }
+.cp-process-step:hover { background: rgba(255,255,255,.07); border-color: rgba(232,97,26,.35); }
 .cp-process-step-num {
   position: absolute; top: 14px; right: 18px;
   font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 48px;
-  color: rgba(244,123,32,.1); letter-spacing: -2px; line-height: 1;
+  color: rgba(232,97,26,.1); letter-spacing: -2px; line-height: 1;
 }
 .cp-process-step-badge {
   display: inline-flex; align-items: center; justify-content: center;
@@ -524,9 +548,9 @@ body {
 .cp-modal-job-meta { font-size: 12px; color: rgba(255,255,255,.5); }
 .cp-modal-body { padding: 28px 32px 32px; }
 .cp-modal-note {
-  background: var(--gray-light); border-left: 4px solid var(--orange);
+  background: var(--gray-bg); border-left: 4px solid var(--orange);
   padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 24px;
-  font-size: 12.5px; color: var(--gray); line-height: 1.6;
+  font-size: 12.5px; color: var(--gray-text); line-height: 1.6;
 }
 .cp-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 .cp-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
@@ -542,17 +566,17 @@ body {
   width: 100%;
 }
 .cp-form-input:focus, .cp-form-select:focus, .cp-form-textarea:focus {
-  border-color: var(--orange); box-shadow: 0 0 0 3px rgba(244,123,32,.12);
+  border-color: var(--orange); box-shadow: 0 0 0 3px rgba(232,97,26,.12);
 }
 .cp-form-textarea { resize: vertical; min-height: 90px; }
 .cp-form-upload {
   border: 2px dashed #dde2ec; border-radius: 10px; padding: 20px 16px;
   text-align: center; cursor: pointer; transition: border-color .2s, background .2s;
-  background: var(--gray-light);
+  background: var(--gray-bg);
 }
-.cp-form-upload:hover { border-color: var(--orange); background: rgba(244,123,32,.04); }
-.cp-form-upload-icon { font-size: 28px; margin-bottom: 6px; }
-.cp-form-upload-text { font-size: 13px; color: var(--gray); }
+.cp-form-upload:hover { border-color: var(--orange); background: rgba(232,97,26,.04); }
+.cp-form-upload-icon { margin-bottom: 8px; display: flex; align-items: center; justify-content: center; }
+.cp-form-upload-text { font-size: 13px; color: var(--gray-text); }
 .cp-form-upload-text b { color: var(--navy); }
 .cp-form-upload-sub { font-size: 11px; color: rgba(122,132,153,.7); margin-top: 3px; }
 .cp-modal-submit-row { display: flex; gap: 12px; margin-top: 24px; align-items: center; }
@@ -565,7 +589,7 @@ body {
 .btn-cp-submit:hover { background: var(--orange-dark); }
 .btn-cp-cancel {
   padding: 14px 22px; border-radius: 8px;
-  border: 2px solid #dde2ec; background: transparent; color: var(--gray);
+  border: 2px solid #dde2ec; background: transparent; color: var(--gray-text);
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px;
   cursor: pointer; transition: all .2s;
 }
@@ -573,7 +597,7 @@ body {
 
 /* ════ CTA ════ */
 .cp-cta {
-  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--blue) 60%, var(--navy) 100%);
+  background: linear-gradient(135deg, #060f1e 0%, var(--navy-light) 60%, var(--navy) 100%);
   padding: 72px 0; width: 100%; position: relative; overflow: hidden;
 }
 .cp-cta::before {
@@ -594,7 +618,7 @@ body {
 .cp-cta-btns { display: flex; gap: 14px; flex-wrap: wrap; flex-shrink: 0; }
 .btn-cp-cta-primary {
   background: var(--orange); color: #fff; border: none;
-  padding: 15px 32px; border-radius: 7px;
+  padding: 15px 32px; border-radius: 4px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12.5px;
   cursor: pointer; letter-spacing: .8px; text-transform: uppercase;
   transition: background .2s; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;
@@ -602,7 +626,7 @@ body {
 .btn-cp-cta-primary:hover { background: var(--orange-dark); }
 .btn-cp-cta-outline {
   background: transparent; color: #fff;
-  border: 2px solid rgba(255,255,255,.45); padding: 15px 32px; border-radius: 7px;
+  border: 1.5px solid rgba(255,255,255,.45); padding: 15px 32px; border-radius: 4px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12.5px;
   cursor: pointer; letter-spacing: .8px; text-transform: uppercase; transition: all .2s; white-space: nowrap;
 }
@@ -648,6 +672,14 @@ body {
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 export default function CareersPage({ onNavigate = () => { } }) {
+    /* ── Firebase careers data (defaults shown immediately) ── */
+    const careersData = useCareersData({
+        heroTitle: "Join Our Team",
+        heroDesc: "We are looking for dedicated professionals to be part of a growing halal food processing company. Explore open positions below.",
+        openPositions: JOB_LISTINGS,
+    });
+    const liveJobs = careersData.openPositions || JOB_LISTINGS;
+
     const [activeFilter, setActiveFilter] = useState("ALL");
     const [openJob, setOpenJob] = useState(null);
     const [applyJob, setApplyJob] = useState(null);
@@ -656,7 +688,7 @@ export default function CareersPage({ onNavigate = () => { } }) {
 
     const filtered = activeFilter === "ALL"
         ? JOB_LISTINGS
-        : JOB_LISTINGS.filter(j => j.dept === activeFilter);
+        : liveJobs.filter(j => j.dept === activeFilter);
 
     const handleApply = (job) => {
         setApplyJob(job);
@@ -676,17 +708,13 @@ export default function CareersPage({ onNavigate = () => { } }) {
             {/* ════════════ HERO ════════════ */}
             <section className="cp-hero">
                 <div className="cp-inner">
-                    <div className="cp-breadcrumb">
-                        <button className="cp-breadcrumb-btn" onClick={() => onNavigate("home")}>Home</button>
-                        <span className="cp-breadcrumb-sep">›</span>
-                        <span className="cp-breadcrumb-cur">Careers</span>
-                    </div>
+
                     <div className="cp-hero-layout">
                         <div>
                             <span className="cp-hero-label">Join Our Team</span>
                             <h1 className="cp-hero-title">
                                 Build Your Career<br />
-                                <span className="hl">With Toughman</span>
+                                <span className="cp-hero-title-hl">With Toughman</span>
                             </h1>
                             <div className="cp-hero-divider" />
                             <p className="cp-hero-desc">
@@ -711,9 +739,9 @@ export default function CareersPage({ onNavigate = () => { } }) {
 
                         {/* Open roles preview card */}
                         <div className="cp-hero-card">
-                            <div className="cp-hero-card-title">🔥 Actively Hiring</div>
+                            <div className="cp-hero-card-title">Actively Hiring</div>
                             <div className="cp-hero-role-list">
-                                {JOB_LISTINGS.slice(0, 5).map(j => (
+                                {liveJobs.slice(0, 5).map(j => (
                                     <div
                                         className="cp-hero-role-item"
                                         key={j.id}
@@ -730,11 +758,11 @@ export default function CareersPage({ onNavigate = () => { } }) {
                                 ))}
                             </div>
                             <div className="cp-hero-card-footer">
-                                <span className="cp-hero-card-count">Showing <b>5</b> of <b>{JOB_LISTINGS.length}</b> openings</span>
+                                <span className="cp-hero-card-count">Showing <b>5</b> of <b>{liveJobs.length}</b> openings</span>
                                 <button
                                     style={{ background: "none", border: "none", cursor: "pointer", color: "var(--orange)", fontFamily: "Montserrat,sans-serif", fontWeight: 700, fontSize: "11px", letterSpacing: ".8px", textTransform: "uppercase" }}
                                     onClick={() => document.getElementById("cp-jobs-section")?.scrollIntoView({ behavior: "smooth" })}
-                                >View All →</button>
+                                >View All</button>
                             </div>
                         </div>
                     </div>
@@ -822,18 +850,20 @@ export default function CareersPage({ onNavigate = () => { } }) {
                                     <div className="cp-job-card-left">
                                         <div className="cp-job-top-row">
                                             <span className="cp-job-dept-badge">{job.dept}</span>
-                                            {job.urgent && <span className="cp-job-urgent-badge">🔥 Urgent</span>}
+                                            {job.urgent && <span className="cp-job-urgent-badge">URGENT</span>}
                                         </div>
                                         <div className="cp-job-title">{job.title}</div>
                                         <div className="cp-job-meta">
-                                            <span className="cp-job-meta-item"><span className="cp-job-meta-icon">📍</span>{job.location}</span>
-                                            <span className="cp-job-meta-item"><span className="cp-job-meta-icon">💼</span>{job.type}</span>
-                                            <span className="cp-job-meta-item"><span className="cp-job-meta-icon">📊</span>{job.level}</span>
+                                            <span className="cp-job-meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>{job.location}</span>
+                                            <span className="cp-job-meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /></svg>{job.type}</span>
+                                            <span className="cp-job-meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>{job.level}</span>
                                         </div>
                                     </div>
                                     <div className="cp-job-card-right">
                                         <div className="cp-job-posted">Posted {job.posted}</div>
-                                        <button className="cp-job-expand-btn">▾</button>
+                                        <button className="cp-job-expand-btn" aria-label="Toggle job details">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+                                        </button>
                                     </div>
                                 </div>
 
@@ -861,7 +891,7 @@ export default function CareersPage({ onNavigate = () => { } }) {
                                             </ul>
                                         </div>
                                         <div className="cp-job-apply-row">
-                                            <span className="cp-job-apply-note">📧 Applications reviewed within 5 business days</span>
+                                            <span className="cp-job-apply-note">Applications reviewed within 5 business days</span>
                                             <button className="btn-cp-apply" onClick={() => handleApply(job)}>
                                                 Apply Now →
                                             </button>
@@ -912,7 +942,7 @@ export default function CareersPage({ onNavigate = () => { } }) {
                     </div>
                     <div className="cp-cta-btns">
                         <button className="btn-cp-cta-primary" onClick={() => handleApply({ id: 0, title: "General Application", dept: "ANY", location: "Quezon City, PH", type: "Full-Time", level: "All Levels" })}>
-                            📎 Submit Open Application
+                            Submit Open Application
                         </button>
                         <button className="btn-cp-cta-outline" onClick={() => onNavigate("contact")}>
                             Contact HR Team
@@ -926,20 +956,24 @@ export default function CareersPage({ onNavigate = () => { } }) {
                 <div className="cp-modal-backdrop" onClick={e => { if (e.target === e.currentTarget) setApplyJob(null); }}>
                     <div className="cp-modal">
                         <div className="cp-modal-header">
-                            <button className="cp-modal-close" onClick={() => setApplyJob(null)}>✕</button>
+                            <button className="cp-modal-close" onClick={() => setApplyJob(null)} aria-label="Close">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                            </button>
                             <span className="cp-modal-job-dept">{applyJob.dept} · {applyJob.type}</span>
                             <div className="cp-modal-job-title">{applyJob.title}</div>
-                            <div className="cp-modal-job-meta">📍 {applyJob.location} &nbsp;·&nbsp; 📊 {applyJob.level}</div>
+                            <div className="cp-modal-job-meta">{applyJob.location} &nbsp;·&nbsp; {applyJob.level}</div>
                         </div>
 
                         <div className="cp-modal-body">
                             {submitted ? (
                                 <div style={{ textAlign: "center", padding: "32px 0" }}>
-                                    <div style={{ fontSize: "48px", marginBottom: "16px" }}>✅</div>
+                                    <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "#e8611a", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                                    </div>
                                     <div style={{ fontFamily: "Montserrat,sans-serif", fontWeight: 900, fontSize: "18px", color: "var(--navy)", textTransform: "uppercase", marginBottom: "10px" }}>
                                         Application Submitted!
                                     </div>
-                                    <p style={{ fontSize: "13.5px", color: "var(--gray)", lineHeight: "1.8", marginBottom: "24px" }}>
+                                    <p style={{ fontSize: "13.5px", color: "var(--gray-text)", lineHeight: "1.8", marginBottom: "24px" }}>
                                         Thank you, <b>{formData.firstName}</b>! Our HR team will review your
                                         application and get back to you within 5 business days.
                                     </p>
@@ -948,7 +982,7 @@ export default function CareersPage({ onNavigate = () => { } }) {
                             ) : (
                                 <>
                                     <div className="cp-modal-note">
-                                        📋 Please fill in all required fields. You can attach your CV as a PDF or Word document.
+                                        Please fill in all required fields. You can attach your CV as a PDF or Word document.
                                     </div>
                                     <div className="cp-form-row">
                                         <div className="cp-form-group">
@@ -992,7 +1026,9 @@ export default function CareersPage({ onNavigate = () => { } }) {
                                     <div className="cp-form-group">
                                         <label className="cp-form-label">Attach CV / Resume</label>
                                         <div className="cp-form-upload">
-                                            <div className="cp-form-upload-icon">📄</div>
+                                            <div className="cp-form-upload-icon">
+                                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e8611a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg>
+                                            </div>
                                             <div className="cp-form-upload-text"><b>Click to upload</b> or drag and drop</div>
                                             <div className="cp-form-upload-sub">PDF or DOC — max 5MB</div>
                                         </div>

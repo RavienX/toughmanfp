@@ -1,3 +1,4 @@
+import { useContactData } from "../hooks/useSiteData";
 import { useState } from "react";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -11,7 +12,7 @@ const CONTACT_INFO = [
             </svg>
         ),
         label: "Address",
-        lines: ["Toughman Processing Inc.", "Quezon City, Metro Manila", "Philippines"],
+        lines: ["Toughman Processing Inc.", "Sta. Maria, Zamboanga City", "Zamboanga del Sur, Philippines"],
         action: null,
     },
     {
@@ -62,28 +63,6 @@ const INQUIRY_TYPES = [
     "General Inquiry",
 ];
 
-const FAQ_QUICK = [
-    {
-        q: "What is the minimum order for wholesale?",
-        a: "Minimum wholesale orders vary by product. Contact our sales team for current MOQs and pricing.",
-    },
-    {
-        q: "Do you deliver outside Metro Manila?",
-        a: "Yes. We deliver to selected provincial areas via our refrigerated cold chain fleet. Contact us for coverage and lead times.",
-    },
-    {
-        q: "Can I visit the facility?",
-        a: "Facility tours are available by appointment. Please complete the contact form and select 'Facility Tour / Audit' as the inquiry type.",
-    },
-    {
-        q: "Are your products Halal certified?",
-        a: "Yes. All Toughman products are Halal certified by the Islamic Da'wah Council of the Philippines (IDCP).",
-    },
-    {
-        q: "How do I request a copy of your certifications?",
-        a: "Certification documents (ISO 22000, HACCP, NMIS, Halal) are available upon request. Use the form and select 'Quality & Certifications'.",
-    },
-];
 
 const SOCIALS = [
     {
@@ -119,6 +98,16 @@ const SOCIALS = [
         url: "#",
         color: "#e1306c",
     },
+    {
+        name: "WhatsApp",
+        icon: (
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+            </svg>
+        ),
+        url: "https://wa.me/639459829389",
+        color: "#25d366",
+    },
 ];
 
 // ─── CSS ─────────────────────────────────────────────────────────────────────
@@ -137,8 +126,8 @@ body {
 .tm-page { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; background: #f5f7fa !important; }
 
 :root {
-  --navy: #0d1b3e; --navy-dark: #060f23; --blue: #1a3a6b;
-  --orange: #f47b20; --orange-dark: #d96a10;
+  --navy: #0a1628; --navy-dark: #060f1e; --blue: #1a3a6b;
+  --orange: #e8611a; --orange-dark: #c9500f;
   --gray-light: #f5f7fa; --gray: #7a8499;
 }
 
@@ -152,7 +141,7 @@ body {
 .conp-hero::before {
   content: ''; position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 55% 70% at 90% 40%, rgba(244,123,32,.09) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 70% at 90% 40%, rgba(232,97,26,.09) 0%, transparent 60%),
     repeating-linear-gradient(-45deg, transparent, transparent 38px, rgba(255,255,255,.016) 38px, rgba(255,255,255,.016) 39px);
   pointer-events: none;
 }
@@ -193,10 +182,10 @@ body {
   display: flex; align-items: flex-start; gap: 16px;
   transition: background .2s, border-color .2s;
 }
-.conp-info-card:hover { background: rgba(255,255,255,.1); border-color: rgba(244,123,32,.35); }
+.conp-info-card:hover { background: rgba(255,255,255,.1); border-color: rgba(232,97,26,.35); }
 .conp-info-icon {
   width: 48px; height: 48px; border-radius: 10px; flex-shrink: 0;
-  background: rgba(244,123,32,.15); border: 1px solid rgba(244,123,32,.3);
+  background: rgba(232,97,26,.15); border: 1px solid rgba(232,97,26,.3);
   display: flex; align-items: center; justify-content: center;
   color: var(--orange);
 }
@@ -215,7 +204,7 @@ body {
 .conp-info-action:hover { opacity: .75; }
 
 /* ════ CONTACT FORM + MAP SECTION ════ */
-.conp-main { background: var(--gray-light); padding: 80px 0; width: 100%; }
+.conp-main { background: var(--gray-bg); padding: 80px 0; width: 100%; }
 .conp-main .conp-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 
 /* ─ Contact Form ─ */
@@ -232,7 +221,7 @@ body {
   font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 24px;
   color: var(--navy); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 6px;
 }
-.conp-form-sub { font-size: 13px; color: var(--gray); line-height: 1.7; }
+.conp-form-sub { font-size: 13px; color: var(--gray-text); line-height: 1.7; }
 
 .conp-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .conp-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
@@ -247,14 +236,14 @@ body {
   background: #fff; transition: border-color .2s, box-shadow .2s; outline: none; width: 100%;
 }
 .conp-input:focus, .conp-select:focus, .conp-textarea:focus {
-  border-color: var(--orange); box-shadow: 0 0 0 3px rgba(244,123,32,.12);
+  border-color: var(--orange); box-shadow: 0 0 0 3px rgba(232,97,26,.12);
 }
 .conp-input.error, .conp-select.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.1); }
 .conp-textarea { resize: vertical; min-height: 110px; }
 .conp-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8499' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 .conp-field-error { font-size: 11px; color: #ef4444; margin-top: 3px; }
 
-.conp-char-count { font-size: 10.5px; color: var(--gray); text-align: right; margin-top: 3px; }
+.conp-char-count { font-size: 10.5px; color: var(--gray-text); text-align: right; margin-top: 3px; }
 
 /* Checkbox */
 .conp-checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; }
@@ -265,7 +254,7 @@ body {
 }
 .conp-checkbox:checked { background: var(--orange); border-color: var(--orange); }
 .conp-checkbox:checked::after { content: '✓'; display: block; text-align: center; color: #fff; font-size: 11px; font-weight: 900; line-height: 16px; }
-.conp-checkbox-label { font-size: 12.5px; color: var(--gray); line-height: 1.65; }
+.conp-checkbox-label { font-size: 12.5px; color: var(--gray-text); line-height: 1.65; }
 .conp-checkbox-label b { color: var(--navy); }
 
 .btn-conp-submit {
@@ -277,27 +266,27 @@ body {
 }
 .btn-conp-submit:hover { background: var(--orange-dark); }
 .btn-conp-submit:active { transform: scale(.98); }
-.btn-conp-submit:disabled { background: var(--gray); cursor: not-allowed; }
-.conp-form-note { font-size: 11px; color: var(--gray); text-align: center; margin-top: 12px; line-height: 1.6; }
+.btn-conp-submit:disabled { background: var(--gray-text); cursor: not-allowed; }
+.conp-form-note { font-size: 11px; color: var(--gray-text); text-align: center; margin-top: 12px; line-height: 1.6; }
 
 /* Success state */
 .conp-success {
   text-align: center; padding: 48px 20px;
   display: flex; flex-direction: column; align-items: center; gap: 14px;
 }
-.conp-success-icon { font-size: 52px; }
+.conp-success-icon { display: flex; align-items: center; justify-content: center; }
 .conp-success-title {
   font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 20px;
   color: var(--navy); text-transform: uppercase; letter-spacing: .3px;
 }
-.conp-success-desc { font-size: 13.5px; color: var(--gray); line-height: 1.8; max-width: 340px; }
+.conp-success-desc { font-size: 13.5px; color: var(--gray-text); line-height: 1.8; max-width: 340px; }
 .btn-conp-reset {
   background: var(--navy); color: #fff; border: none; border-radius: 8px;
   padding: 12px 28px; font-family: 'Montserrat', sans-serif;
   font-weight: 700; font-size: 12px; text-transform: uppercase;
   letter-spacing: .8px; cursor: pointer; margin-top: 8px; transition: background .2s;
 }
-.btn-conp-reset:hover { background: var(--blue); }
+.btn-conp-reset:hover { background: var(--navy-light); }
 
 /* ─ Map + Quick Info ─ */
 .conp-map-col { display: flex; flex-direction: column; gap: 24px; }
@@ -305,52 +294,21 @@ body {
 .conp-map-wrap {
   border-radius: 16px; overflow: hidden;
   border: 1px solid #eaeaea; box-shadow: 0 8px 32px rgba(13,27,62,.08);
-  background: var(--navy); aspect-ratio: 4/3; position: relative;
+  aspect-ratio: 4/3; position: relative;
 }
-.conp-map-placeholder {
-  width: 100%; height: 100%; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 14px;
-  background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6b 60%, #0d2a4a 100%);
-  position: relative; overflow: hidden;
+.conp-map-iframe {
+  width: 100%; height: 100%; display: block; position: absolute; inset: 0;
 }
-.conp-map-placeholder::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,.018) 28px, rgba(255,255,255,.018) 29px);
-}
-.conp-map-grid-lines {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-.conp-map-pin {
-  position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px;
-}
-.conp-map-pin-icon {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--orange); display: flex; align-items: center; justify-content: center;
-  font-size: 24px; box-shadow: 0 0 0 10px rgba(244,123,32,.2), 0 0 0 20px rgba(244,123,32,.08);
-  animation: conpPulse 2.5s ease-in-out infinite;
-}
-@keyframes conpPulse {
-  0%, 100% { box-shadow: 0 0 0 10px rgba(244,123,32,.2), 0 0 0 20px rgba(244,123,32,.08); }
-  50% { box-shadow: 0 0 0 14px rgba(244,123,32,.15), 0 0 0 28px rgba(244,123,32,.05); }
-}
-.conp-map-pin-label {
-  font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px;
-  color: #fff; text-align: center; text-transform: uppercase; letter-spacing: .5px;
-}
-.conp-map-pin-addr { font-size: 11px; color: rgba(255,255,255,.6); text-align: center; }
 .conp-map-open-btn {
   position: absolute; bottom: 14px; right: 14px; z-index: 3;
-  background: #fff; border: none; border-radius: 8px;
+  background: var(--navy); border: none; border-radius: 8px;
   padding: 9px 16px; cursor: pointer;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 10.5px;
-  color: var(--navy); text-transform: uppercase; letter-spacing: .8px;
+  color: #fff; text-transform: uppercase; letter-spacing: .8px;
   display: flex; align-items: center; gap: 6px;
   box-shadow: 0 4px 16px rgba(0,0,0,.25); transition: background .2s;
 }
-.conp-map-open-btn:hover { background: var(--orange); color: #fff; }
+.conp-map-open-btn:hover { background: var(--orange); }
 
 /* Quick contact cards */
 .conp-quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -360,13 +318,18 @@ body {
   display: flex; flex-direction: column; gap: 8px;
   transition: box-shadow .2s, border-color .2s, transform .2s;
 }
-.conp-quick-card:hover { box-shadow: 0 8px 24px rgba(13,27,62,.1); border-color: rgba(244,123,32,.25); transform: translateY(-2px); }
-.conp-quick-card-icon { font-size: 22px; }
+.conp-quick-card:hover { box-shadow: 0 6px 20px rgba(13,27,62,.09); border-color: rgba(232,97,26,.2); transform: translateY(-1px); }
+.conp-quick-card-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(232,97,26,.1); border: 1px solid rgba(232,97,26,.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--orange); flex-shrink: 0;
+}
 .conp-quick-card-title {
   font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px;
   color: var(--navy); text-transform: uppercase; letter-spacing: .3px;
 }
-.conp-quick-card-val { font-size: 12px; color: var(--gray); line-height: 1.6; }
+.conp-quick-card-val { font-size: 12px; color: var(--gray-text); line-height: 1.6; word-break: break-word; }
 .conp-quick-card-link {
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 10.5px;
   color: var(--orange); text-transform: uppercase; letter-spacing: .6px;
@@ -376,107 +339,7 @@ body {
 }
 .conp-quick-card-link:hover { opacity: .75; }
 
-/* ════ SOCIALS STRIP ════ */
-.conp-socials-strip { background: var(--navy); padding: 36px 0; width: 100%; border-bottom: 1px solid rgba(255,255,255,.08); }
-.conp-socials-strip .conp-inner {
-  display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
-}
-.conp-socials-text {
-  font-family: 'Montserrat', sans-serif; font-size: 13px; color: rgba(255,255,255,.6);
-}
-.conp-socials-text b { color: #fff; }
-.conp-socials-btns { display: flex; gap: 10px; }
-.conp-social-btn {
-  width: 42px; height: 42px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
-  cursor: pointer; color: rgba(255,255,255,.75);
-  transition: background .2s, border-color .2s, color .2s, transform .15s;
-}
-.conp-social-btn:hover { transform: translateY(-2px); border-color: rgba(244,123,32,.4); color: var(--orange); background: rgba(255,255,255,.1); }
 
-/* ════ FAQ STRIP ════ */
-.conp-faq { background: #fff; padding: 72px 0; width: 100%; }
-.conp-faq .conp-inner { display: grid; grid-template-columns: 340px 1fr; gap: 64px; align-items: start; }
-.conp-faq-left-label {
-  display: block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px;
-  color: var(--orange); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;
-}
-.conp-faq-left-title {
-  font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(20px, 2.2vw, 28px);
-  color: var(--navy); text-transform: uppercase; line-height: 1.2; margin-bottom: 14px;
-}
-.conp-faq-left-sub { font-size: 13.5px; color: var(--gray); line-height: 1.8; margin-bottom: 28px; }
-.btn-conp-faq {
-  background: var(--navy); color: #fff; border: none; padding: 13px 26px; border-radius: 7px;
-  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px;
-  text-transform: uppercase; letter-spacing: .8px; cursor: pointer; transition: background .2s;
-  display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-conp-faq:hover { background: var(--blue); }
-.conp-faq-list { display: flex; flex-direction: column; gap: 10px; }
-.conp-faq-item {
-  background: var(--gray-light); border: 1px solid #eaeaea;
-  border-radius: 12px; overflow: hidden; transition: border-color .2s, box-shadow .2s;
-}
-.conp-faq-item.open { border-color: rgba(244,123,32,.4); box-shadow: 0 4px 16px rgba(13,27,62,.07); }
-.conp-faq-q {
-  width: 100%; background: none; border: none; cursor: pointer;
-  padding: 18px 22px; text-align: left;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px;
-  color: var(--navy); line-height: 1.4; transition: color .2s;
-}
-.conp-faq-item.open .conp-faq-q { color: var(--orange); }
-.conp-faq-chevron {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: #fff; border: 1.5px solid #dde2ec;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; flex-shrink: 0; color: var(--navy);
-  transition: background .2s, transform .3s, color .2s, border-color .2s;
-}
-.conp-faq-item.open .conp-faq-chevron { background: var(--orange); color: #fff; border-color: var(--orange); transform: rotate(180deg); }
-.conp-faq-a {
-  max-height: 0; overflow: hidden; padding: 0 22px;
-  font-size: 13px; color: #4a5568; line-height: 1.85;
-  transition: max-height .35s ease, padding .35s ease;
-}
-.conp-faq-item.open .conp-faq-a { max-height: 200px; padding: 0 22px 20px; }
-
-/* ════ BOTTOM CTA BANNER ════ */
-.conp-cta {
-  background: var(--orange); padding: 0; width: 100%;
-}
-.conp-cta .conp-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 32px; flex-wrap: wrap; padding-top: 44px; padding-bottom: 44px;
-}
-.conp-cta-left { display: flex; align-items: center; gap: 18px; }
-.conp-cta-icon { font-size: 40px; flex-shrink: 0; }
-.conp-cta-title {
-  font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(18px, 2.5vw, 26px);
-  color: #fff; text-transform: uppercase; line-height: 1.15;
-}
-.conp-cta-sub { font-size: 13px; color: rgba(255,255,255,.8); margin-top: 4px; }
-.conp-cta-btns { display: flex; gap: 12px; flex-wrap: wrap; flex-shrink: 0; }
-.btn-conp-cta-white {
-  background: #fff; color: var(--orange); border: none;
-  padding: 14px 28px; border-radius: 7px;
-  font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12.5px;
-  cursor: pointer; letter-spacing: .8px; text-transform: uppercase;
-  transition: transform .15s, box-shadow .2s; white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(0,0,0,.15);
-  display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-conp-cta-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
-.btn-conp-cta-dark {
-  background: rgba(0,0,0,.15); color: #fff; border: 2px solid rgba(255,255,255,.5);
-  padding: 14px 28px; border-radius: 7px;
-  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12.5px;
-  cursor: pointer; letter-spacing: .8px; text-transform: uppercase;
-  transition: all .2s; white-space: nowrap;
-}
-.btn-conp-cta-dark:hover { background: rgba(0,0,0,.25); border-color: rgba(255,255,255,.8); }
 
 /* ════ RESPONSIVE ════ */
 @media (max-width: 1100px) {
@@ -486,31 +349,45 @@ body {
 @media (max-width: 900px) {
   .conp-hero-layout { grid-template-columns: 1fr; gap: 40px; }
   .conp-main .conp-inner { grid-template-columns: 1fr; }
-  .conp-faq .conp-inner { grid-template-columns: 1fr; gap: 36px; }
-  .conp-socials-strip .conp-inner { justify-content: center; text-align: center; }
+  .conp-info-cards { display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .conp-hero { padding: 52px 0 44px; }
+  .conp-quick-card:hover { transform: none; }
 }
 @media (max-width: 640px) {
-  .conp-hero { padding: 48px 0 40px; }
-  .conp-main { padding: 52px 0; }
+  .conp-hero { padding: 44px 0 36px; }
+  .conp-info-cards { grid-template-columns: 1fr; }
+  .conp-main { padding: 44px 0; }
   .conp-form-wrap { padding: 24px 18px; }
   .conp-form-row { grid-template-columns: 1fr; }
-  .conp-quick-grid { grid-template-columns: 1fr; }
-  .conp-faq { padding: 52px 0; }
-  .conp-cta .conp-inner { flex-direction: column; align-items: flex-start; }
-  .conp-cta-btns { width: 100%; }
-  .btn-conp-cta-white, .btn-conp-cta-dark { flex: 1; justify-content: center; }
+  .conp-quick-grid { grid-template-columns: 1fr 1fr; }
+  .conp-map-wrap { aspect-ratio: 3/2; }
 }
 @media (max-width: 420px) {
   .conp-inner { padding: 0 16px; }
   .conp-hero-title { font-size: 28px; }
   .conp-info-cards { gap: 10px; }
+  .conp-quick-grid { grid-template-columns: 1fr; }
+  .conp-form-title { font-size: 20px; }
+  .conp-map-wrap { aspect-ratio: 1/1; }
 }
 `;
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 export default function ContactPage({ onNavigate = () => { } }) {
-    const [openFaq, setOpenFaq] = useState(null);
+    /* ── Firebase contact data (defaults shown immediately) ── */
+    const contactData = useContactData({
+        address: "Sta. Maria, Zamboanga City, Philippines",
+        phone: "+63 945 982 9389",
+        email: "inquiries@toughmanfp.com",
+        mapEmbedUrl: "",
+        officeHours: "Monday – Friday, 8:00 AM – 5:00 PM",
+    });
+    // contactData fields available: address, phone, email, mapEmbedUrl, officeHours
+    // CONTACT_INFO array keeps its SVG icons (not editable via admin)
+    // Only the text values are overrideable from Firebase
     const [submitted, setSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
@@ -552,11 +429,7 @@ export default function ContactPage({ onNavigate = () => { } }) {
             {/* ════════════ HERO ════════════ */}
             <section className="conp-hero">
                 <div className="conp-inner">
-                    <div className="conp-breadcrumb">
-                        <button className="conp-breadcrumb-btn" onClick={() => onNavigate("home")}>Home</button>
-                        <span className="conp-breadcrumb-sep">›</span>
-                        <span className="conp-breadcrumb-cur">Contact</span>
-                    </div>
+
 
                     <div className="conp-hero-layout">
                         {/* Left: text */}
@@ -568,9 +441,9 @@ export default function ContactPage({ onNavigate = () => { } }) {
                             </h1>
                             <div className="conp-hero-divider" />
                             <p className="conp-hero-desc">
-                                Whether you're a retailer, restaurant, caterer, or distributor —
-                                our team is ready to discuss your frozen chicken supply needs.
-                                We respond to all inquiries within one business day.
+                                Retailers, restaurants, caterers, and distributors are welcome
+                                to reach out for pricing, supply terms, or product inquiries.
+                                Our sales team responds within one business day, Monday to Saturday.
                             </p>
                             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                                 {SOCIALS.map(s => (
@@ -618,7 +491,12 @@ export default function ContactPage({ onNavigate = () => { } }) {
                     <div className="conp-form-wrap">
                         {submitted ? (
                             <div className="conp-success">
-                                <div className="conp-success-icon">✅</div>
+                                <div className="conp-success-icon">
+                                    <svg viewBox="0 0 52 52" width="52" height="52" fill="none">
+                                        <circle cx="26" cy="26" r="25" fill="rgba(232,97,26,.12)" stroke="var(--orange)" strokeWidth="1.5" />
+                                        <path d="M14 26l8 9 16-18" stroke="var(--orange)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </div>
                                 <div className="conp-success-title">Message Received!</div>
                                 <p className="conp-success-desc">
                                     Thank you, <b>{form.firstName}</b>! Our team will review your
@@ -769,7 +647,7 @@ export default function ContactPage({ onNavigate = () => { } }) {
                                     ) : "Send Message →"}
                                 </button>
                                 <div className="conp-form-note">
-                                    📧 We respond to all inquiries within <b>1 business day</b>.<br />
+                                    We respond to all inquiries within <b>1 business day</b>.<br />
                                     Mon – Sat, 8:00 AM – 5:00 PM PH Time.
                                 </div>
                             </>
@@ -778,134 +656,76 @@ export default function ContactPage({ onNavigate = () => { } }) {
 
                     {/* Map + Quick info */}
                     <div className="conp-map-col">
-                        {/* Map placeholder */}
+                        {/* Google Maps Embed */}
                         <div className="conp-map-wrap">
-                            <div className="conp-map-placeholder">
-                                <div className="conp-map-grid-lines" />
-                                <div className="conp-map-pin">
-                                    <div className="conp-map-pin-icon">📍</div>
-                                    <div className="conp-map-pin-label">Toughman Processing Inc.</div>
-                                    <div className="conp-map-pin-addr">Quezon City, Metro Manila, PH</div>
-                                </div>
-                                <button
-                                    className="conp-map-open-btn"
-                                    onClick={() => window.open("https://maps.google.com/?q=Quezon+City+Metro+Manila+Philippines", "_blank")}
-                                >
-                                    🗺️ Open in Google Maps
-                                </button>
-                            </div>
+                            <iframe
+                                title="Toughman Processing Location"
+                                className="conp-map-iframe"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15804.123456789!2d122.0726!3d6.9214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x325041b44fea4d33%3A0x1a96e19acdd1c79d!2sSta.%20Maria%2C%20Zamboanga%20City%2C%20Zamboanga%20del%20Sur!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                style={{ border: 0 }}
+                            />
+                            <button
+                                className="conp-map-open-btn"
+                                onClick={() => window.open("https://maps.google.com/?q=Sta.+Maria+Zamboanga+City+Philippines", "_blank")}
+                            >
+                                Open in Google Maps →
+                            </button>
                         </div>
 
                         {/* Quick contact cards */}
                         <div className="conp-quick-grid">
                             <div className="conp-quick-card">
-                                <div className="conp-quick-card-icon">📞</div>
+                                <div className="conp-quick-card-icon">
+                                    <svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M10 8h8l3 8-4.5 3C18 23 25 30 29 32.5l3-4.5 8 3v8c0 0-3 5-10 3C16 39 9 25 8 18 6 11 10 8 10 8z" />
+                                    </svg>
+                                </div>
                                 <div className="conp-quick-card-title">Call Sales</div>
                                 <div className="conp-quick-card-val">+63 945 982 9389</div>
                                 <a href="tel:+639459829389" className="conp-quick-card-link">Call Now →</a>
                             </div>
                             <div className="conp-quick-card">
-                                <div className="conp-quick-card-icon">📧</div>
+                                <div className="conp-quick-card-icon">
+                                    <svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="6" y="10" width="36" height="28" rx="3" />
+                                        <polyline points="6,10 24,26 42,10" />
+                                    </svg>
+                                </div>
                                 <div className="conp-quick-card-title">Email Us</div>
                                 <div className="conp-quick-card-val">sales@toughmanprocessing.com</div>
                                 <a href="mailto:sales@toughmanprocessing.com" className="conp-quick-card-link">Send Email →</a>
                             </div>
                             <div className="conp-quick-card">
-                                <div className="conp-quick-card-icon">🏭</div>
-                                <div className="conp-quick-card-title">Visit Us</div>
-                                <div className="conp-quick-card-val">Quezon City, PH</div>
-                                <button
-                                    className="conp-quick-card-link"
-                                    onClick={() => window.open("https://maps.google.com/?q=Quezon+City+Philippines", "_blank")}
-                                >Get Directions →</button>
+                                <div className="conp-quick-card-icon">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+                                    </svg>
+                                </div>
+                                <div className="conp-quick-card-title">WhatsApp</div>
+                                <div className="conp-quick-card-val">+63 945 982 9389</div>
+                                <a href="https://wa.me/639459829389" target="_blank" rel="noopener noreferrer" className="conp-quick-card-link" style={{ textDecoration: "none" }}>Message Us →</a>
                             </div>
                             <div className="conp-quick-card">
-                                <div className="conp-quick-card-icon">🕐</div>
+                                <div className="conp-quick-card-icon">
+                                    <svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <circle cx="24" cy="24" r="18" />
+                                        <path d="M24 14v10l6 6" strokeWidth="2.2" />
+                                    </svg>
+                                </div>
                                 <div className="conp-quick-card-title">Office Hours</div>
                                 <div className="conp-quick-card-val">Mon–Sat 8AM–5PM</div>
-                                <span className="conp-quick-card-link" style={{ cursor: "default" }}>PH Time ✓</span>
+                                <span className="conp-quick-card-link" style={{ cursor: "default" }}>PH Time</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ════════════ SOCIALS STRIP ════════════ */}
-            <div className="conp-socials-strip">
-                <div className="conp-inner">
-                    <div className="conp-socials-text">
-                        <b>Follow Toughman</b> for product updates, news, and industry insights
-                    </div>
-                    <div className="conp-socials-btns">
-                        {SOCIALS.map(s => (
-                            <a
-                                key={s.name}
-                                href={s.url}
-                                className="conp-social-btn"
-                                title={s.name}
-                                style={{ textDecoration: "none" }}
-                            >
-                                {s.icon}
-                            </a>
-                        ))}
-                    </div>
-                </div>
-            </div>
 
-            {/* ════════════ FAQ ════════════ */}
-            <section className="conp-faq">
-                <div className="conp-inner">
-                    <div>
-                        <span className="conp-faq-left-label">Common Questions</span>
-                        <h2 className="conp-faq-left-title">Quick Answers Before You Contact Us</h2>
-                        <p className="conp-faq-left-sub">
-                            These are the questions we hear most often. If yours isn't here,
-                            use the form above and we'll get back to you within the day.
-                        </p>
-                        <button className="btn-conp-faq" onClick={() => onNavigate("quality")}>
-                            📋 View Quality Docs
-                        </button>
-                    </div>
-                    <div className="conp-faq-list">
-                        {FAQ_QUICK.map((faq, i) => (
-                            <div
-                                className={`conp-faq-item${openFaq === i ? " open" : ""}`}
-                                key={i}
-                            >
-                                <button
-                                    className="conp-faq-q"
-                                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                                >
-                                    {faq.q}
-                                    <span className="conp-faq-chevron">▾</span>
-                                </button>
-                                <div className="conp-faq-a">{faq.a}</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* ════════════ BOTTOM CTA ════════════ */}
-            <div className="conp-cta">
-                <div className="conp-inner">
-                    <div className="conp-cta-left">
-                        <div className="conp-cta-icon">🤝</div>
-                        <div>
-                            <div className="conp-cta-title">Ready to Place an Order?</div>
-                            <div className="conp-cta-sub">Call us directly or browse our full product catalogue.</div>
-                        </div>
-                    </div>
-                    <div className="conp-cta-btns">
-                        <a href="tel:+639459829389" className="btn-conp-cta-white" style={{ textDecoration: "none" }}>
-                            📞 +63 945 982 9389
-                        </a>
-                        <button className="btn-conp-cta-dark" onClick={() => onNavigate("products")}>
-                            View Products
-                        </button>
-                    </div>
-                </div>
-            </div>
 
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </>

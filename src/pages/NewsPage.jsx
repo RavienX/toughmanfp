@@ -1,3 +1,4 @@
+import { useNewsData } from "../hooks/useSiteData";
 import { useState } from "react";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -152,7 +153,7 @@ const NEWS_ARTICLES = [
 ];
 
 const CATEGORY_COLORS = {
-    "COMPANY NEWS": { bg: "rgba(244,123,32,.12)", text: "var(--orange)", border: "rgba(244,123,32,.3)" },
+    "COMPANY NEWS": { bg: "rgba(232,97,26,.12)", text: "var(--orange)", border: "rgba(232,97,26,.3)" },
     "INDUSTRY": { bg: "rgba(125,211,252,.12)", text: "#0c4a6e", border: "rgba(125,211,252,.4)" },
     "CERTIFICATIONS": { bg: "rgba(134,239,172,.12)", text: "#14532d", border: "rgba(134,239,172,.4)" },
     "COMMUNITY": { bg: "rgba(253,230,138,.12)", text: "#78350f", border: "rgba(253,230,138,.4)" },
@@ -175,8 +176,8 @@ body {
 .tm-page { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; background: #f5f7fa !important; }
 
 :root {
-  --navy: #0d1b3e; --navy-dark: #060f23; --blue: #1a3a6b;
-  --orange: #f47b20; --orange-dark: #d96a10;
+  --navy: #0a1628; --navy-dark: #060f1e; --blue: #1a3a6b;
+  --orange: #e8611a; --orange-dark: #c9500f;
   --gray-light: #f5f7fa; --gray: #7a8499;
 }
 
@@ -187,7 +188,7 @@ body {
 .np-hero::before {
   content: ''; position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 85% 50%, rgba(244,123,32,.08) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 80% at 85% 50%, rgba(232,97,26,.08) 0%, transparent 65%),
     repeating-linear-gradient(-45deg, transparent, transparent 38px, rgba(255,255,255,.016) 38px, rgba(255,255,255,.016) 39px);
   pointer-events: none;
 }
@@ -230,7 +231,7 @@ body {
   border-radius: 20px; padding: 28px 26px; cursor: pointer;
   transition: background .2s, border-color .2s;
 }
-.np-hero-featured:hover { background: rgba(255,255,255,.1); border-color: rgba(244,123,32,.4); }
+.np-hero-featured:hover { background: rgba(255,255,255,.1); border-color: rgba(232,97,26,.4); }
 .np-hero-featured-label {
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 10px;
   color: var(--orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; display: block;
@@ -259,7 +260,7 @@ body {
 /* ════ FILTER + SEARCH BAR ════ */
 .np-filter-bar {
   background: #fff; border-bottom: 1px solid #eaeaea;
-  position: sticky; top: 90px; z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   box-shadow: 0 2px 12px rgba(0,0,0,.06); width: 100%;
 }
 .np-filter-bar .np-inner {
@@ -271,7 +272,7 @@ body {
 .np-filter-tab {
   padding: 0 16px; height: 64px; line-height: 64px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px;
-  color: var(--gray); text-transform: uppercase; letter-spacing: .8px;
+  color: var(--gray-text); text-transform: uppercase; letter-spacing: .8px;
   border: none; background: none; cursor: pointer;
   border-bottom: 3px solid transparent; transition: color .2s, border-color .2s;
   white-space: nowrap; flex-shrink: 0;
@@ -294,14 +295,14 @@ body {
 .np-search-btn:hover { background: var(--orange); }
 
 /* ════ MAIN CONTENT ════ */
-.np-content { background: var(--gray-light); padding: 64px 0 80px; width: 100%; }
+.np-content { background: var(--gray-bg); padding: 64px 0 80px; width: 100%; }
 .np-content .np-inner { display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
 
 /* ─ Article grid ─ */
 .np-articles-header {
   display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 8px;
 }
-.np-articles-count { font-family: 'Montserrat', sans-serif; font-size: 12.5px; color: var(--gray); }
+.np-articles-count { font-family: 'Montserrat', sans-serif; font-size: 12.5px; color: var(--gray-text); }
 .np-articles-count b { color: var(--navy); }
 .np-sort-select {
   border: 1.5px solid #dde2ec; border-radius: 7px; padding: 7px 12px;
@@ -313,13 +314,13 @@ body {
 
 /* Article card */
 .np-article-card {
-  background: #fff; border-radius: 16px; overflow: hidden;
-  border: 1px solid #eaeaea; box-shadow: 0 4px 16px rgba(0,0,0,.04);
-  transition: box-shadow .25s, border-color .25s, transform .25s;
-  cursor: pointer;
+  background: #fff; border-radius: 14px; overflow: hidden;
+  border: 1px solid #eaeaea; box-shadow: 0 2px 12px rgba(0,0,0,.04);
+  transition: box-shadow .2s, border-color .2s, transform .2s;
+  cursor: pointer; min-width: 0;
 }
-.np-article-card:hover { box-shadow: 0 10px 36px rgba(13,27,62,.1); border-color: rgba(244,123,32,.25); transform: translateY(-2px); }
-.np-article-card.featured { border-color: rgba(244,123,32,.3); border-left: 4px solid var(--orange); }
+.np-article-card:hover { box-shadow: 0 8px 28px rgba(13,27,62,.1); border-color: rgba(232,97,26,.2); transform: translateY(-1px); }
+.np-article-card.featured { border-color: rgba(232,97,26,.3); border-left: 4px solid var(--orange); }
 .np-article-card-inner { padding: 24px 24px 20px; }
 .np-article-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
 .np-article-tag {
@@ -329,17 +330,17 @@ body {
 }
 .np-article-featured-badge {
   padding: 3px 10px; border-radius: 5px;
-  background: rgba(244,123,32,.12); color: var(--orange); border: 1px solid rgba(244,123,32,.3);
+  background: rgba(232,97,26,.12); color: var(--orange); border: 1px solid rgba(232,97,26,.3);
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 9px;
   letter-spacing: .8px; text-transform: uppercase;
 }
-.np-article-date { font-family: 'Montserrat', sans-serif; font-size: 10.5px; color: var(--gray); margin-left: auto; }
+.np-article-date { font-family: 'Montserrat', sans-serif; font-size: 10.5px; color: var(--gray-text); margin-left: auto; }
 .np-article-title {
   font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 16px;
   color: var(--navy); text-transform: uppercase; letter-spacing: .2px;
-  line-height: 1.35; margin-bottom: 10px;
+  line-height: 1.35; margin-bottom: 10px; word-break: break-word;
 }
-.np-article-excerpt { font-size: 13px; color: #4a5568; line-height: 1.8; margin-bottom: 16px; }
+.np-article-excerpt { font-size: 13px; color: #4a5568; line-height: 1.8; margin-bottom: 16px; word-break: break-word; }
 .np-article-footer {
   display: flex; align-items: center; gap: 16px; padding-top: 14px;
   border-top: 1px solid #f0f2f6; flex-wrap: wrap;
@@ -352,7 +353,7 @@ body {
   border: 1.5px solid var(--orange); flex-shrink: 0;
 }
 .np-article-author-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; color: var(--navy); }
-.np-article-read-time { font-size: 11px; color: var(--gray); margin-left: auto; }
+.np-article-read-time { font-size: 11px; color: var(--gray-text); margin-left: auto; }
 .np-article-read-btn {
   background: none; border: none; cursor: pointer; padding: 0;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px;
@@ -365,7 +366,7 @@ body {
 .np-no-results {
   text-align: center; padding: 60px 20px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px;
-  color: var(--gray); text-transform: uppercase; letter-spacing: .5px;
+  color: var(--gray-text); text-transform: uppercase; letter-spacing: .5px;
 }
 .np-no-results-sub { font-size: 13px; font-weight: 400; margin-top: 8px; text-transform: none; letter-spacing: 0; }
 
@@ -386,7 +387,7 @@ body {
   padding: 9px 12px; border-radius: 8px; cursor: pointer;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px;
   color: var(--navy); text-transform: uppercase; letter-spacing: .5px;
-  background: var(--gray-light); border: 1px solid transparent;
+  background: var(--gray-bg); border: 1px solid transparent;
   transition: all .2s;
 }
 .np-sidebar-cat:hover, .np-sidebar-cat.active { background: var(--navy); color: #fff; }
@@ -394,7 +395,7 @@ body {
   background: rgba(255,255,255,.15); color: rgba(255,255,255,.8);
   padding: 1px 8px; border-radius: 10px; font-size: 10px;
 }
-.np-sidebar-cat:not(:hover):not(.active) .np-sidebar-cat-count { background: #eaeaea; color: var(--gray); }
+.np-sidebar-cat:not(:hover):not(.active) .np-sidebar-cat-count { background: #eaeaea; color: var(--gray-text); }
 
 .np-sidebar-recents { display: flex; flex-direction: column; gap: 14px; }
 .np-sidebar-recent-item {
@@ -412,20 +413,20 @@ body {
   font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px;
   color: var(--navy); line-height: 1.45;
 }
-.np-sidebar-recent-date { font-size: 10.5px; color: var(--gray); }
+.np-sidebar-recent-date { font-size: 10.5px; color: var(--gray-text); }
 
 .np-sidebar-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .np-sidebar-tag {
   padding: 5px 12px; border-radius: 20px; cursor: pointer;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 10px;
   color: var(--navy); text-transform: uppercase; letter-spacing: .5px;
-  background: var(--gray-light); border: 1.5px solid #dde2ec;
+  background: var(--gray-bg); border: 1.5px solid #dde2ec;
   transition: all .2s;
 }
 .np-sidebar-tag:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
 
 .np-sidebar-newsletter { display: flex; flex-direction: column; gap: 12px; }
-.np-sidebar-newsletter-desc { font-size: 12.5px; color: var(--gray); line-height: 1.7; }
+.np-sidebar-newsletter-desc { font-size: 12.5px; color: var(--gray-text); line-height: 1.7; }
 .np-newsletter-input {
   border: 1.5px solid #dde2ec; border-radius: 7px; padding: 10px 12px;
   font-family: 'Open Sans', sans-serif; font-size: 13px; color: var(--navy);
@@ -433,7 +434,7 @@ body {
 }
 .np-newsletter-input:focus { border-color: var(--orange); }
 .btn-np-newsletter {
-  background: var(--orange); color: #fff; border: none; border-radius: 7px;
+  background: var(--orange); color: #fff; border: none; border-radius: 4px;
   padding: 11px 0; width: 100%;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11.5px;
   text-transform: uppercase; letter-spacing: .8px; cursor: pointer; transition: background .2s;
@@ -498,19 +499,21 @@ body {
   border: 2px solid var(--orange);
 }
 .np-modal-author-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; color: var(--navy); }
-.np-modal-author-role { font-size: 11px; color: var(--gray); }
+.np-modal-author-role { font-size: 11px; color: var(--gray-text); }
 .np-modal-share { display: flex; align-items: center; gap: 8px; }
-.np-modal-share-label { font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: .8px; }
+.np-modal-share-label { font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--gray-text); text-transform: uppercase; letter-spacing: .8px; }
 .np-modal-share-btn {
-  width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #dde2ec;
+  min-width: 36px; height: 28px; border-radius: 5px; border: 1.5px solid #dde2ec;
   background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-size: 14px; transition: all .2s;
+  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 9px;
+  color: var(--gray-text); letter-spacing: .5px; padding: 0 8px;
+  transition: all .2s;
 }
-.np-modal-share-btn:hover { background: var(--navy); border-color: var(--navy); }
+.np-modal-share-btn:hover { background: var(--navy); border-color: var(--navy); color: #fff; }
 
 /* ════ CTA ════ */
 .np-cta {
-  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--blue) 60%, var(--navy) 100%);
+  background: linear-gradient(135deg, #060f1e 0%, var(--navy-light) 60%, var(--navy) 100%);
   padding: 72px 0; width: 100%; position: relative; overflow: hidden;
 }
 .np-cta::before {
@@ -533,7 +536,7 @@ body {
 .np-cta-sub { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.7; max-width: 420px; }
 .np-cta-btns { display: flex; gap: 14px; flex-wrap: wrap; flex-shrink: 0; }
 .btn-np-cta-primary {
-  background: var(--orange); color: #fff; border: none; padding: 15px 32px; border-radius: 7px;
+  background: var(--orange); color: #fff; border: none; padding: 15px 32px; border-radius: 4px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12.5px;
   cursor: pointer; letter-spacing: .8px; text-transform: uppercase;
   transition: background .2s; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;
@@ -541,7 +544,7 @@ body {
 .btn-np-cta-primary:hover { background: var(--orange-dark); }
 .btn-np-cta-outline {
   background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.45);
-  padding: 15px 32px; border-radius: 7px;
+  padding: 15px 32px; border-radius: 4px;
   font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12.5px;
   cursor: pointer; letter-spacing: .8px; text-transform: uppercase; transition: all .2s; white-space: nowrap;
 }
@@ -556,32 +559,58 @@ body {
   .np-hero-layout { grid-template-columns: 1fr; gap: 36px; }
   .np-content .np-inner { grid-template-columns: 1fr; }
   .np-sidebar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .np-hero-featured { max-width: 540px; }
+}
+@media (max-width: 768px) {
+  .np-hero { padding: 52px 0 44px; }
+  .np-hero-stats { gap: 20px; flex-wrap: wrap; }
+  .np-article-card-inner { padding: 20px 18px 16px; }
+  .np-modal { max-width: 100%; margin: 0; border-radius: 16px 16px 0 0; margin-top: auto; }
+  .np-modal-backdrop { align-items: flex-end; padding: 0; }
 }
 @media (max-width: 640px) {
-  .np-hero { padding: 48px 0 40px; }
+  .np-hero { padding: 44px 0 36px; }
+  .np-filter-bar { position: sticky; top: 0; }
   .np-filter-bar .np-inner { height: auto; flex-direction: column; align-items: flex-start; gap: 0; padding: 0 16px; }
   .np-filter-tabs { width: 100%; border-bottom: 1px solid #eaeaea; }
+  .np-filter-tab { padding: 0 12px; font-size: 10px; }
   .np-search-wrap { width: 100%; padding: 10px 0; }
-  .np-search-input { flex: 1; width: auto; }
-  .np-content { padding: 40px 0 60px; }
+  .np-search-input { flex: 1; width: auto; min-width: 0; }
+  .np-search-btn { flex-shrink: 0; font-size: 11px; padding: 9px 12px; }
+  .np-content { padding: 32px 0 52px; }
   .np-sidebar { grid-template-columns: 1fr; }
-  .np-cta .np-inner { flex-direction: column; align-items: flex-start; }
-  .np-cta-btns { width: 100%; }
+  .np-cta { padding: 48px 0; }
+  .np-cta .np-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .np-cta-btns { width: 100%; flex-direction: column; gap: 10px; }
+  .btn-np-cta-primary, .btn-np-cta-outline { width: 100%; justify-content: center; }
   .np-modal-header { padding: 24px 20px 20px; }
   .np-modal-body { padding: 22px 20px 24px; }
-  .np-modal-footer { padding: 16px 20px 20px; }
+  .np-modal-footer { padding: 16px 20px 20px; flex-direction: column; align-items: flex-start; }
+  .np-article-footer { flex-wrap: wrap; gap: 10px; }
+  .np-article-read-time { display: none; }
+  .np-articles-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .np-sort-select { width: 100%; }
+  .np-hero-featured-title { font-size: 15px; }
 }
 @media (max-width: 420px) {
   .np-inner { padding: 0 16px; }
-  .np-hero-stats { gap: 16px; }
+  .np-hero-stats { gap: 14px; }
+  .np-hero-stat-val { font-size: 22px; }
   .np-article-title { font-size: 14px; }
-  .btn-np-cta-primary, .btn-np-cta-outline { width: 100%; justify-content: center; }
+  .np-article-excerpt { font-size: 12.5px; }
+  .np-modal-title { font-size: 15px; }
+  .np-modal-body-text { font-size: 13px; }
+  .np-sidebar-card { padding: 20px 16px; }
+  .np-hero-featured { padding: 20px 18px; }
 }
 `;
 
 // ─── COMPONENT ───────────────────────────────────────────────────────────────
 
 export default function NewsPage({ onNavigate = () => { } }) {
+    /* ── Firebase news (defaults shown immediately) ── */
+    const liveNews = useNewsData(NEWS_ARTICLES);
+
     const [activeFilter, setActiveFilter] = useState("ALL");
     const [searchQuery, setSearchQuery] = useState("");
     const [searchInput, setSearchInput] = useState("");
@@ -589,7 +618,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
     const [newsletterEmail, setNewsletterEmail] = useState("");
     const [newsletterDone, setNewsletterDone] = useState(false);
 
-    const filtered = NEWS_ARTICLES.filter(a => {
+    const filtered = liveNews.filter(a => {
         const matchesCat = activeFilter === "ALL" || a.category === activeFilter;
         const matchesSearch = !searchQuery ||
             a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -602,11 +631,11 @@ export default function NewsPage({ onNavigate = () => { } }) {
     const handleSearchKey = e => { if (e.key === "Enter") handleSearch(); };
 
     const catCounts = CATEGORIES.reduce((acc, cat) => {
-        acc[cat] = cat === "ALL" ? NEWS_ARTICLES.length : NEWS_ARTICLES.filter(a => a.category === cat).length;
+        acc[cat] = cat === "ALL" ? liveNews.length : liveNews.filter(a => a.category === cat).length;
         return acc;
     }, {});
 
-    const featuredArticle = NEWS_ARTICLES.find(a => a.featured);
+    const featuredArticle = liveNews.find(a => a.featured);
 
     return (
         <>
@@ -615,11 +644,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
             {/* ════════════ HERO ════════════ */}
             <section className="np-hero">
                 <div className="np-inner">
-                    <div className="np-breadcrumb">
-                        <button className="np-breadcrumb-btn" onClick={() => onNavigate("home")}>Home</button>
-                        <span className="np-breadcrumb-sep">›</span>
-                        <span className="np-breadcrumb-cur">News</span>
-                    </div>
+
                     <div className="np-hero-layout">
                         <div>
                             <span className="np-hero-label">Latest News</span>
@@ -628,16 +653,16 @@ export default function NewsPage({ onNavigate = () => { } }) {
                             </h1>
                             <div className="np-hero-divider" />
                             <p className="np-hero-desc">
-                                Stay up to date with the latest developments at Toughman Processing —
-                                from certifications and facility expansions to industry news and
-                                community initiatives.
+                                Company announcements, facility updates, regulatory developments,
+                                and community initiatives from Toughman Processing — kept current
+                                for our clients, partners, and distributors.
                             </p>
                             <div className="np-hero-stats">
                                 {[
-                                    { val: NEWS_ARTICLES.length.toString(), lbl: "Articles" },
-                                    { val: "5", lbl: "Categories" },
-                                    { val: "2026", lbl: "Latest Year" },
-                                    { val: "Monthly", lbl: "Update Frequency" },
+                                    { val: liveNews.length.toString(), lbl: "Published Articles" },
+                                    { val: "5", lbl: "Topics Covered" },
+                                    { val: "ISO", lbl: "22000 Certified" },
+                                    { val: "Halal", lbl: "IDCP Certified" },
                                 ].map(s => (
                                     <div key={s.lbl}>
                                         <div className="np-hero-stat-val">{s.val}</div>
@@ -650,7 +675,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
                         {/* Latest featured article preview */}
                         {featuredArticle && (
                             <div className="np-hero-featured" onClick={() => setOpenArticle(featuredArticle)}>
-                                <span className="np-hero-featured-label">📰 Latest Featured Story</span>
+                                <span className="np-hero-featured-label">FEATURED STORY</span>
                                 <div>
                                     <span
                                         className="np-hero-featured-tag"
@@ -693,7 +718,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
                             onChange={e => setSearchInput(e.target.value)}
                             onKeyDown={handleSearchKey}
                         />
-                        <button className="np-search-btn" onClick={handleSearch}>🔍</button>
+                        <button className="np-search-btn" onClick={handleSearch}>Search</button>
                     </div>
                 </div>
             </div>
@@ -733,7 +758,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
                                                 style={{ background: article.tagColor, color: article.tagTextColor }}
                                             >{article.tag}</span>
                                             {article.featured && (
-                                                <span className="np-article-featured-badge">⭐ Featured</span>
+                                                <span className="np-article-featured-badge">Featured</span>
                                             )}
                                             <span className="np-article-date">{article.date}</span>
                                         </div>
@@ -744,7 +769,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
                                                 <div className="np-article-avatar">{article.authorInitial}</div>
                                                 <div className="np-article-author-name">{article.author}</div>
                                             </div>
-                                            <span className="np-article-read-time">🕐 {article.readTime}</span>
+                                            <span className="np-article-read-time">{article.readTime}</span>
                                             <button className="np-article-read-btn">Read More →</button>
                                         </div>
                                     </div>
@@ -776,7 +801,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
                         <div className="np-sidebar-card">
                             <div className="np-sidebar-title">Recent Articles</div>
                             <div className="np-sidebar-recents">
-                                {NEWS_ARTICLES.slice(0, 4).map(a => (
+                                {liveNews.slice(0, 4).map(a => (
                                     <div
                                         key={a.id}
                                         className="np-sidebar-recent-item"
@@ -815,7 +840,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
                                     <div style={{ textAlign: "center", padding: "12px 0" }}>
                                         <div style={{ fontSize: "28px", marginBottom: "8px" }}>✅</div>
                                         <div style={{ fontFamily: "Montserrat,sans-serif", fontWeight: 700, fontSize: "12px", color: "var(--navy)", textTransform: "uppercase" }}>You're subscribed!</div>
-                                        <div style={{ fontSize: "11.5px", color: "var(--gray)", marginTop: "6px" }}>We'll send updates to {newsletterEmail}</div>
+                                        <div style={{ fontSize: "11.5px", color: "var(--gray-text)", marginTop: "6px" }}>We'll send updates to {newsletterEmail}</div>
                                     </div>
                                 ) : (
                                     <>
@@ -841,27 +866,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
                 </div>
             </section>
 
-            {/* ════════════ CTA ════════════ */}
-            <section className="np-cta">
-                <div className="np-inner">
-                    <div>
-                        <span className="np-cta-label">Work With Us</span>
-                        <h2 className="np-cta-title">Interested in Partnering<br />with Toughman?</h2>
-                        <p className="np-cta-sub">
-                            Whether you're a retailer, foodservice operator, or distributor —
-                            we'd love to discuss how Toughman can support your supply chain.
-                        </p>
-                    </div>
-                    <div className="np-cta-btns">
-                        <button className="btn-np-cta-primary" onClick={() => onNavigate("contact")}>
-                            📞 Contact Us
-                        </button>
-                        <button className="btn-np-cta-outline" onClick={() => onNavigate("products")}>
-                            View Products
-                        </button>
-                    </div>
-                </div>
-            </section>
+
 
             {/* ════════════ ARTICLE MODAL ════════════ */}
             {openArticle && (
@@ -900,7 +905,7 @@ export default function NewsPage({ onNavigate = () => { } }) {
                             </div>
                             <div className="np-modal-share">
                                 <span className="np-modal-share-label">Share</span>
-                                {["📘", "🐦", "💼"].map((icon, i) => (
+                                {["FB", "TW", "LI"].map((icon, i) => (
                                     <button key={i} className="np-modal-share-btn">{icon}</button>
                                 ))}
                             </div>
